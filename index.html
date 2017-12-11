@@ -42,12 +42,14 @@
     }
 
     .active1 {
-      background: yellow;
+      /*background: yellow;*/
     }
 
     .active2 {
       background: cyan;
     }
+
+
 
     .active1.active2 {
       background-color: #fff;
@@ -118,6 +120,44 @@
     .teamMember {
       height: 100%;
     }
+
+    .colorSelection1 {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      top: 35%;
+      left: 50px;
+      border: solid 1px #2a2a2a;
+    }
+
+    .colorS {
+      width: 17px;
+      height: 17px;
+      border-radius: 7px;
+      margin: 10px;
+      background-color: red;
+      border: 2px solid rgba(0,0,0,0);
+    }
+
+    .c0 {
+      background-color: yellow;
+    }
+    .c1 {
+      background-color: #ffa621;
+    }
+    .c2 {
+      background-color: #6cff2d;
+    }
+    .c3 {
+      background-color: #ff38b6;
+    }
+    .c4 {
+      background-color: #ba3aff;
+    }
+    .c5 {
+      background-color: #2d5eff;
+    }
+
   </style>
 </head>
 
@@ -129,6 +169,16 @@
   <p class="title">Trail<br>Breaker</p>
   <p class="winner"></p>
   <p class="pressSpace">Press Space</p>
+
+  <!-- Color Selection -->
+  <div class="colorSelection1">
+    <div class="colorS c0"></div>
+    <div class="colorS c1"></div>
+    <div class="colorS c2"></div>
+    <div class="colorS c3"></div>
+    <div class="colorS c4"></div>
+    <div class="colorS c5"></div>
+  </div>
 
   <!-- cheat -->
   <div class="cheatCode">
@@ -145,6 +195,37 @@
 
   <!-- SCRIPT - - - - - - - - - - - - - - - - - - - - - - - -->
   <script type="text/javascript">
+
+
+  color1= "yellow";
+
+    // COLORS
+    var colorS1 = document.querySelectorAll('.colorS');
+    colorS1[0].style.border="2px solid white";
+    for (let i = 0; i < colorS1.length; i++) {
+      colorS1[i].addEventListener('click', function(){
+        if (i==0) {
+          color1= "yellow";
+        } else if (i==1) {
+          color1="#ffa621";
+        } else if (i==2) {
+          color1="#6cff2d";
+        } else if (i==3) {
+          color1="#ff38b6";
+        } else if (i==4) {
+          color1="#ba3aff";
+        } else if (i==5) {
+          color1="#2d5eff";
+        }
+        for (var j = 0; j < colorS1.length; j++) {
+          colorS1[j].style.border="";
+        }
+        colorS1[i].style.border="2px solid white";
+      });
+    }
+
+    var color2 = 'cyan';
+
     // VARIABLE POUR AFFICHAGE ECRAN ACCUEIL/RESULTAT
     var game = document.querySelector('.game');
     var title = document.querySelector('.title');
@@ -191,6 +272,7 @@
       winner.style.transitionDuration = '1.5s';
       space.style.transitionDuration = '1.5s';
     }
+
     var loop = function() {
       var limit1 = 0;
       var limit2 = 0;
@@ -325,7 +407,7 @@
             endAnim();
             winner.style.opacity = "1";
             winner.textContent = '- p2 wins -';
-            winner.style.color = 'cyan';
+            winner.style.color = color2;
             space.style.opacity = "1";
             window.clearInterval(looping);
           }
@@ -334,7 +416,7 @@
             endAnim();
             winner.style.opacity = "1";
             winner.textContent = '- p2 wins -';
-            winner.style.color = 'cyan';
+            winner.style.color = color2;
             space.style.opacity = "1";
             window.clearInterval(looping);
           }
@@ -343,7 +425,7 @@
             endAnim();
             winner.style.opacity = "1";
             winner.textContent = '- p1 wins -';
-            winner.style.color = 'yellow';
+            winner.style.color = color1;
             space.style.opacity = "1";
             window.clearInterval(looping);
           }
@@ -352,7 +434,7 @@
             endAnim();
             winner.style.opacity = "1";
             winner.textContent = '- p1 wins -';
-            winner.style.color = 'yellow';
+            winner.style.color = color1;
             space.style.opacity = "1";
             window.clearInterval(looping);
           }
@@ -379,10 +461,12 @@
       active1 = document.querySelectorAll('.active1');
       for (var i = 0; i < active1.length; i++) {
         active1[i].classList.remove('active1');
+        active1[i].style.backgroundColor = '';  // DECOLORE : COULEUR 1
       }
       active2 = document.querySelectorAll('.active2');
       for (var i = 0; i < active2.length; i++) {
         active2[i].classList.remove('active2');
+        active2[i].style.backgroundColor = '';  // DECOLORE : COULEUR 2
       }
       head1 = document.querySelectorAll('.head1');
       for (var i = 0; i < head1.length; i++) {
@@ -392,15 +476,19 @@
       for (var i = 0; i < head2.length; i++) {
         head2[i].classList.remove('head2');
       }
+
       // COLORIE LE SERPENT
       for (var i1 = 0; i1 < save1.length; i1++) {
         save1[i1].classList.add('active1');
+        save1[i1].style.backgroundColor = color1; // RECOLORE : COULEUR 1
       }
       for (var i2 = 0; i2 < save2.length; i2++) {
         save2[i2].classList.add('active2');
+        save2[i2].style.backgroundColor = color2; // RECOLORE : COULEUR 2
       }
     } //fin de la loop
     var looping = window.setInterval(loop, 150);
+
     // PRESS SPACE
     window.addEventListener('keyup', function(event) { //BOUTON ESPACE!!!
       if (event.which === 32) {
@@ -440,14 +528,17 @@
         winner.style.color = 'white';
         space.style.opacity = "0";
         game.style.display = "flex"; // Affiche le jeu
+
         //REMISE A ZERO!!!!!!!!!!!!!!
         active1 = document.querySelectorAll('.active1');
         for (var i = 0; i < active1.length; i++) {
           active1[i].classList.remove('active1');
+          active1[i].style.backgroundColor = '';
         }
         active2 = document.querySelectorAll('.active2');
         for (var i = 0; i < active2.length; i++) {
           active2[i].classList.remove('active2');
+          active2[i].style.backgroundColor = '';
         }
         head1 = document.querySelectorAll('.head1');
         for (var i = 0; i < head1.length; i++) {
@@ -461,9 +552,11 @@
         // COLORIE LE SERPENT
         for (var i1 = 0; i1 < save1.length; i1++) {
           save1[i1].classList.add('active1');
+          save1[i1].style.backgroundColor = color1;
         }
         for (var i2 = 0; i2 < save2.length; i2++) {
           save2[i2].classList.add('active2');
+          save2[i2].style.backgroundColor = color2;
         }
       }
     });
