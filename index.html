@@ -130,34 +130,55 @@
       border: solid 1px #2a2a2a;
     }
 
-    .colorS {
+    .colorSelection2 {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      top: 35%;
+      border: solid 1px #2a2a2a;
+      right: 50px;
+    }
+
+    .colorS1,
+    .colorS2 {
       width: 17px;
       height: 17px;
       border-radius: 7px;
       margin: 10px;
-      background-color: red;
-      border: 2px solid rgba(0,0,0,0);
+      border: 2px solid rgba(0, 0, 0, 0);
     }
 
     .c0 {
       background-color: yellow;
     }
+
     .c1 {
+      background-color: cyan;
+    }
+
+    .c2 {
       background-color: #ffa621;
     }
-    .c2 {
+
+    .c3 {
       background-color: #6cff2d;
     }
-    .c3 {
+
+    .c4 {
       background-color: #ff38b6;
     }
-    .c4 {
+
+    .c5 {
       background-color: #ba3aff;
     }
-    .c5 {
+
+    .c6 {
       background-color: #2d5eff;
     }
 
+    .lockedColor {
+      background: rgba(0, 0, 0, 0.1);
+    }
   </style>
 </head>
 
@@ -172,13 +193,25 @@
 
   <!-- Color Selection -->
   <div class="colorSelection1">
-    <div class="colorS c0"></div>
-    <div class="colorS c1"></div>
-    <div class="colorS c2"></div>
-    <div class="colorS c3"></div>
-    <div class="colorS c4"></div>
-    <div class="colorS c5"></div>
+    <div class="colorS1 c0"></div>
+    <div class="colorS1 c1"></div>
+    <div class="colorS1 c2"></div>
+    <div class="colorS1 c3"></div>
+    <div class="colorS1 c4"></div>
+    <div class="colorS1 c5"></div>
+    <div class="colorS1 c6"></div>
   </div>
+
+  <div class="colorSelection2">
+    <div class="colorS2 c0"></div>
+    <div class="colorS2 c1"></div>
+    <div class="colorS2 c2"></div>
+    <div class="colorS2 c3"></div>
+    <div class="colorS2 c4"></div>
+    <div class="colorS2 c5"></div>
+    <div class="colorS2 c6"></div>
+  </div>
+
 
   <!-- cheat -->
   <div class="cheatCode">
@@ -195,36 +228,79 @@
 
   <!-- SCRIPT - - - - - - - - - - - - - - - - - - - - - - - -->
   <script type="text/javascript">
+    // Couleurs initiales
+    var color1 = "yellow";
+    var color2 = 'cyan';
+    var colorS1 = document.querySelectorAll('.colorS1');
+    var colorS2 = document.querySelectorAll('.colorS2');
+    colorS1[0].style.border = "2px solid white";
+    colorS2[1].style.border = "2px solid white";
+    colorS1[1].classList.add('lockedColor');
+    colorS2[0].classList.add('lockedColor');
 
-
-  color1= "yellow";
-
-    // COLORS
-    var colorS1 = document.querySelectorAll('.colorS');
-    colorS1[0].style.border="2px solid white";
+    //Sélection couleur J1
     for (let i = 0; i < colorS1.length; i++) {
-      colorS1[i].addEventListener('click', function(){
-        if (i==0) {
-          color1= "yellow";
-        } else if (i==1) {
-          color1="#ffa621";
-        } else if (i==2) {
-          color1="#6cff2d";
-        } else if (i==3) {
-          color1="#ff38b6";
-        } else if (i==4) {
-          color1="#ba3aff";
-        } else if (i==5) {
-          color1="#2d5eff";
+      colorS1[i].addEventListener('click', function() {
+        if (!colorS1[i].classList.contains('lockedColor')) {
+          if (i == 0) {
+            color1 = "yellow";
+          } else if (i == 1) {
+            color1 = "cyan";
+          } else if (i == 2) {
+            color1 = "#ffa621";
+          } else if (i == 3) {
+            color1 = "#6cff2d";
+          } else if (i == 4) {
+            color1 = "#ff38b6";
+          } else if (i == 5) {
+            color1 = "#ba3aff";
+          } else if (i == 6) {
+            color1 = "#2d5eff";
+          }
+          for (var j = 0; j < colorS1.length; j++) {
+            colorS1[j].style.border = "";
+            colorS2[j].classList.remove('lockedColor');
+          }
+          colorS1[i].style.border = "2px solid white";
+          colorS2[i].classList.add('lockedColor');
         }
-        for (var j = 0; j < colorS1.length; j++) {
-          colorS1[j].style.border="";
-        }
-        colorS1[i].style.border="2px solid white";
       });
     }
 
-    var color2 = 'cyan';
+    //Sélection Couleur J2
+    for (let i = 0; i < colorS2.length; i++) {
+      colorS2[i].addEventListener('click', function() {
+        if (!colorS2[i].classList.contains('lockedColor')) {
+          if (i == 0) {
+            color2 = "yellow";
+          } else if (i == 1) {
+            color2 = "cyan";
+          } else if (i == 2) {
+            color2 = "#ffa621";
+          } else if (i == 3) {
+            color2 = "#6cff2d";
+          } else if (i == 4) {
+            color2 = "#ff38b6";
+          } else if (i == 5) {
+            color2 = "#ba3aff";
+          } else if (i == 6) {
+            color2 = "#2d5eff";
+          }
+          for (var j = 0; j < colorS2.length; j++) {
+            colorS2[j].style.border = "";
+            colorS1[j].classList.remove('lockedColor');
+          }
+          colorS2[i].style.border = "2px solid white";
+          colorS1[i].classList.add('lockedColor');
+
+        }
+      });
+    }
+
+
+
+
+    var pause = "other";
 
     // VARIABLE POUR AFFICHAGE ECRAN ACCUEIL/RESULTAT
     var game = document.querySelector('.game');
@@ -271,6 +347,7 @@
       document.querySelector('.pom').classList.remove('pom');
       winner.style.transitionDuration = '1.5s';
       space.style.transitionDuration = '1.5s';
+      pause = 'other';
     }
 
     var loop = function() {
@@ -461,12 +538,12 @@
       active1 = document.querySelectorAll('.active1');
       for (var i = 0; i < active1.length; i++) {
         active1[i].classList.remove('active1');
-        active1[i].style.backgroundColor = '';  // DECOLORE : COULEUR 1
+        active1[i].style.backgroundColor = ''; // DECOLORE : COULEUR 1
       }
       active2 = document.querySelectorAll('.active2');
       for (var i = 0; i < active2.length; i++) {
         active2[i].classList.remove('active2');
-        active2[i].style.backgroundColor = '';  // DECOLORE : COULEUR 2
+        active2[i].style.backgroundColor = ''; // DECOLORE : COULEUR 2
       }
       head1 = document.querySelectorAll('.head1');
       for (var i = 0; i < head1.length; i++) {
@@ -490,63 +567,81 @@
     var looping = window.setInterval(loop, 150);
 
     // PRESS SPACE
-    window.addEventListener('keyup', function(event) { //BOUTON ESPACE!!!
+    window.addEventListener('keyup', function(event) {
       if (event.which === 32) {
-        tabX = document.querySelectorAll('.X');
-        tabY = document.querySelectorAll('.Y');
-        active1 = document.querySelectorAll('.active1');
-        X1 = 4;
-        Y1 = 0;
-        save1 = [tabY[Y1 + X1 * (tabY.length / tabX.length)]];
-        maxLength1 = maxLengthBASE;
-        dir1 = 'right';
-        active2 = document.querySelectorAll('.active2');
-        X2 = tabX.length - 5;
-        Y2 = (tabY.length / tabX.length) - 1;
-        save2 = [tabY[Y2 + X2 * (tabY.length / tabX.length)]];
-        maxLength2 = maxLengthBASE;
-        dir2 = 'left';
-        var pom = document.querySelector('.pom');
-        if (pom !== null) {
-          pom.classList.remove('pom');
-        }
-        pomX = Math.floor(Math.random() * tabX.length);
-        pomY = Math.floor(Math.random() * (tabY.length / tabX.length));
-        tabY[pomY + pomX * tabX.length].classList.add('pom');
-        for (var i = 0; i < tabY.length; i++) {
-          tabY[i].style.transitionDuration = '';
-          tabY[i].style.transitionTimingFunction = '';
-          tabY[i].classList.remove('Yend');
-        }
-        winner.style.transitionDuration = '';
-        space.style.transitionDuration = '';
-        window.clearInterval(looping);
-        looping = window.setInterval(loop, 150);
-        //AFFICHAGE!
-        title.style.opacity = "0";
-        winner.style.opacity = "0";
-        winner.style.color = 'white';
-        space.style.opacity = "0";
-        game.style.display = "flex"; // Affiche le jeu
+        if (pause == 'off') { //Active la pause si le jeu est en cours
+          pause = 'on';
+          window.clearInterval(looping);
+          console.log('pauseOn');
+          winner.style.opacity = "1";
+          winner.textContent = 'PAUSE';
+          winner.style.color = '#fff';
+          space.style.opacity = "1";
+        } else if (pause == 'on') { //Désactive la pause
+          pause = 'off';
+          looping = window.setInterval(loop, 150);
+          console.log('pauseOff');
+          winner.style.opacity = "0";
+          space.style.opacity = "0";
+        } else { //Lance le jeu depuis l'accueil ou une fin de round
+          pause = 'off';
+          tabX = document.querySelectorAll('.X');
+          tabY = document.querySelectorAll('.Y');
+          active1 = document.querySelectorAll('.active1');
+          X1 = 4;
+          Y1 = 0;
+          save1 = [tabY[Y1 + X1 * (tabY.length / tabX.length)]];
+          maxLength1 = maxLengthBASE;
+          dir1 = 'right';
+          active2 = document.querySelectorAll('.active2');
+          X2 = tabX.length - 5;
+          Y2 = (tabY.length / tabX.length) - 1;
+          save2 = [tabY[Y2 + X2 * (tabY.length / tabX.length)]];
+          maxLength2 = maxLengthBASE;
+          dir2 = 'left';
+          var pom = document.querySelector('.pom');
+          if (pom !== null) {
+            pom.classList.remove('pom');
+          }
+          pomX = Math.floor(Math.random() * tabX.length);
+          pomY = Math.floor(Math.random() * (tabY.length / tabX.length));
+          tabY[pomY + pomX * tabX.length].classList.add('pom');
+          for (var i = 0; i < tabY.length; i++) {
+            tabY[i].style.transitionDuration = '';
+            tabY[i].style.transitionTimingFunction = '';
+            tabY[i].classList.remove('Yend');
+          }
+          winner.style.transitionDuration = '';
+          space.style.transitionDuration = '';
+          window.clearInterval(looping);
+          looping = window.setInterval(loop, 150);
+          //AFFICHAGE!
+          title.style.opacity = "0";
+          winner.style.opacity = "0";
+          winner.style.color = 'white';
+          space.style.opacity = "0";
+          game.style.display = "flex"; // Affiche le jeu
 
-        //REMISE A ZERO!!!!!!!!!!!!!!
-        active1 = document.querySelectorAll('.active1');
-        for (var i = 0; i < active1.length; i++) {
-          active1[i].classList.remove('active1');
-          active1[i].style.backgroundColor = '';
-        }
-        active2 = document.querySelectorAll('.active2');
-        for (var i = 0; i < active2.length; i++) {
-          active2[i].classList.remove('active2');
-          active2[i].style.backgroundColor = '';
-        }
-        head1 = document.querySelectorAll('.head1');
-        for (var i = 0; i < head1.length; i++) {
-          head1[i].classList.remove('head1');
-        }
-        head2 = document.querySelectorAll('.head2');
-        for (var i = 0; i < head2.length; i++) {
-          head2[i].classList.remove('head2');
+          //REMISE A ZERO!!!!!!!!!!!!!!
+          active1 = document.querySelectorAll('.active1');
+          for (var i = 0; i < active1.length; i++) {
+            active1[i].classList.remove('active1');
+            active1[i].style.backgroundColor = '';
+          }
+          active2 = document.querySelectorAll('.active2');
+          for (var i = 0; i < active2.length; i++) {
+            active2[i].classList.remove('active2');
+            active2[i].style.backgroundColor = '';
+          }
+          head1 = document.querySelectorAll('.head1');
+          for (var i = 0; i < head1.length; i++) {
+            head1[i].classList.remove('head1');
+          }
+          head2 = document.querySelectorAll('.head2');
+          for (var i = 0; i < head2.length; i++) {
+            head2[i].classList.remove('head2');
+          }
+
         }
 
         // COLORIE LE SERPENT
@@ -607,6 +702,7 @@
             winner.textContent = 'cheat code activated';
             winner.style.color = 'red';
             space.style.opacity = "1";
+            pause = 'other';
             window.clearInterval(looping);
           } else {
             saucisse = 0;
